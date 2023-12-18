@@ -6,9 +6,9 @@ A library for microcontrollers that automates Nintendo Switch games using Arduin
 
 ## ⭐ About this Library
 
-This library is based on SwitchControlLibrary by celclow.
+This library is based on [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary) by celclow.
 
-Although the SwitchControlLibrary offers a high degree of freedom, its main problem was that the code tends to be redundant and that it takes time to compile because it uses ArduinoSTL.
+Although [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary) offers a high degree of freedom, its main problem was that the code tends to be redundant and that it takes time to compile because it uses ArduinoSTL.
 
 So, we decided to carefully select commonly used input patterns and summarize them in a function.
 
@@ -38,7 +38,7 @@ We recommend you use the Arduino Leonardo linked in the blog post. We have not t
 
 The Arduino IDE and board versions are basically the latest stable versions that have been tested to work. Older versions may be usable, but we do not guarantee their operation.
 
-Note that there is no specification for the Nintendo Switch firmware version. Any version above 3.0 should work without problems.
+Note that there is no specification for the Nintendo Switch firmware version. Any version above 3.0.0 should work without problems.
 
 ## 📄 Usage
 
@@ -52,7 +52,7 @@ This will allow you to load the libraries and use the commands you want.
 
 Since this is a standalone library, there is no need to load separate libraries such as ArduinoSTL or [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary).
 
-**SwitchControlLibrary cannot be used simultaneously with this because of conflicts with said program.** However, since NintendoSwitchControlLibrary inherits commands from SwitchControlLibrary (v2), it is possible to use commands from SwitchControlLibrary as well. (Because we aren't using ArduinoSTL, the D-Pad commands work a little differently, but they can be used in basically the same way.)
+**[SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary) cannot be used simultaneously with this because of conflicts with said program.** However, since NintendoSwitchControlLibrary inherits commands from [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary) (v2), it is possible to use commands from SwitchControlLibrary as well. (Because we aren't using ArduinoSTL, the D-Pad commands work a little differently, but they can be used in basically the same way.)
 
 ## ⌨️ List of commands
 
