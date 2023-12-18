@@ -30,7 +30,7 @@ Most importantly, we have succeeded in implementing these processes without usin
 
 For detailed installation instructions, please refer to our blog post (Translator's note - Blog post has yet to be translated):
 
-[Use a microcontroller to automate Pokémon Sword and Shield! | Pokémonit ](https://pokemonit.com/micon-introduction/)
+[Use a Microcontroller to Automate Pokémon Sword and Shield! | Pokémonit ](https://pokemonit.com/micon-introduction/)
 
 ## ⚠️ Important Notes
 
