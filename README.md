@@ -190,7 +190,7 @@ In addition, by passing buttons as an argument, it is possible to perform the op
   - Examples
 
     ```
-    tiltRightStick(255, 128, 100);                                 // Tilt right stick to the bottom right for 0.1 seconds
+    tiltRightStick(255, 128, 100);                                 // Tilt right stick to the right for 0.1 seconds
     tiltRightStick(Stick::MAX, Stick::MIN, 10000);                 // Tilt right stick to the top right for 10 seconds
     tiltRightStick(Stick::NEUTRAL, Stick::MAX, 30000, Button::X);  // Hold the right stick down for 30 seconds while mashing X
     ```
