@@ -52,11 +52,11 @@ This will allow you to load the libraries and use the commands you want.
 
 Since this is a standalone library, there is no need to load separate libraries such as ArduinoSTL or [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary).
 
-**SwitchControlLibrary cannot be used simultaneously with this because of conflicts with said program.** However, since NintendoSwitchControlLibrary inherits commands from SwitchControlLibrary (v2), it is possible to use commands from SwitchControlLibrary as well. (Because we aren't using ArduinoSTL, only the D-Pad commands work a little differently, but they can be used in basically the same way.)
+**SwitchControlLibrary cannot be used simultaneously with this because of conflicts with said program.** However, since NintendoSwitchControlLibrary inherits commands from SwitchControlLibrary (v2), it is possible to use commands from SwitchControlLibrary as well. (Because we aren't using ArduinoSTL, the D-Pad commands work a little differently, but they can be used in basically the same way.)
 
 ## ⌨️ List of commands
 
-### button
+### Button
 
 - Command to press a button (also supports consecutive presses)
 
