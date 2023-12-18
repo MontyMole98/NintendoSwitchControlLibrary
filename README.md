@@ -1,94 +1,94 @@
 # NintendoSwitchControlLibrary
 
-Arduino を使って Nintendo Switch のゲームを自動化する、マイコン用のライブラリです。
+A library for microcontrollers that automates Nintendo Switch games using Arduino.
 
 ![demo](https://user-images.githubusercontent.com/49473970/107502281-d0cc6c80-6bdb-11eb-9928-fb0a29744df6.gif)
 
-## ⭐️ このライブラリについて
+## ⭐ About this library
 
-このライブラリは celclow 氏の[SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary)を参考にして作られています。
+This library is based on SwitchControlLibrary by celclow.
 
-SwitchControlLibrary は自由度が高いものの、コードが冗長になりやすい点、ArduinoSTL を使用するためコンパイルに時間がかかる点などがネックでした。
+Although the SwitchControlLibrary offers a high degree of freedom, its main problem was that the code tends to be redundant and that it takes time to compile because it uses ArduinoSTL.
 
-そこで、一般的によく使われる入力のパターンを厳選して関数にまとめることにしました。
+So, we decided to carefully select commonly used input patterns and summarize them in a function.
 
-ボタンを押して離すまでの処理が 1 行で書けるようになり、より効率的に自動化プログラムを組むことができるようになります。連打や長押しの処理にも対応させ、汎用性の高いプログラムに仕上げました。
+The process of pressing and releasing a button can now be written on a single line, allowing for more efficient automation programs. The program can also be used for mashing or holding a button, making it a highly versatile program.
 
-そしてなにより、ArduinoSTL を使わずにこれらの処理を実装することに成功しています。これによりコンパイルが高速に行えるほか、依存関係に悩まされなくなっていることも特徴です。
+Most importantly, we have succeeded in implementing these processes without using the ArduinoSTL. This allows for faster compilation and also eliminates the need to worry about dependencies.
 
-## 🔹 導入方法
+## 🔹 Introduction
 
-### 必要なもの
+### Requirements
 
 - Arduino Leonardo
-- USB ケーブル（Arduino Leonardo と Switch や PC を接続するのに必要）
+- USB cable (required to connect Arduino Leonardo to Switch or PC)
 
-### 動作環境
+### Programming Environment
 
-- Arduino IDE（1.8.13 推奨）
-- Arduino AVR Boards（1.8.3 推奨）
+- Arduino IDE (1.8.13 recommended)
+- Arduino AVR Boards (1.8.3 recommended)
 
-詳しい導入の手順については、ブログで解説していますので、そちらをご覧ください。
+For detailed installation instructions, please refer to our blog post (Translator's note - Blog post has yet to be translated):
 
-[マイコンを導入して、ポケモン剣盾を自動化しよう！【Mac・Windows】｜ポケモニット](https://pokemonit.com/micon-introduction/)
+[Use a microcontroller to automate Pokémon Sword and Shield! | Pokémonit ](https://pokemonit.com/micon-introduction/)
 
-## ⚠️ 注意点
+## ⚠️ Important Notes
 
-Arduino Leonardo については、ブログ内で紹介しているものを推奨しています。その他の Arduino では動作確認を行っておりません。異なるものを使用している場合には、質問にも一切答えられませんので予めご了承ください。
+We recommend you use the Arduino Leonardo linked in the blog post. We have not tested the operation of any other Arduino boards. If you use a different one, we will not be able to answer any questions.
 
-Arduino IDE やボードのバージョンは、基本的に最新の安定版のものを使って動作確認しています。古いバージョンでも使えるとは思いますが、動作を保証するものではありません。
+The Arduino IDE and board versions are basically the latest stable versions that have been tested to work. Older versions may be usable, but we do not guarantee their operation.
 
-なお、Nintendo Switch のバージョンには指定がありません。どのバージョンでも問題なく動作するはずです。
+Note that there is no specification for the Nintendo Switch firmware version. Any version above 3.0 should work without problems.
 
-## 📄 使い方
+## 📄 Usage
 
-ライブラリを使いたいファイルの先頭に以下のように記載してください。
+Please put the following at the beginning of the file in which you want to use the library:
 
 ```
 #include <NintendoSwitchControlLibrary.h>
 ```
 
-これでライブラリを読み込み、各種コマンドを使うことができるようになります。
+This will allow you to load the libraries and use the commands you want.
 
-単体で完結しているため、ArduinoSTL や [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary) といった別のライブラリを読み込む必要はありません。
+Since this is a standalone library, there is no need to load separate libraries such as ArduinoSTL or [SwitchControlLibrary](https://github.com/celclow/SwitchControlLibrary).
 
-**SwitchControlLibrary とは競合するため、同時に読み込むことはできません**が、NintendoSwitchControlLibrary は SwitchControlLibrary（v2 系）を継承して作られているため、SwitchControlLibrary のコマンドも使用することが可能となっています。（ArduinoSTL を使用していない都合で、十字キーのコマンドのみ動作が少し異なりますが、基本的には同じように使うことができます）
+**SwitchControlLibrary cannot be used simultaneously with this because of conflicts with said program.** However, since NintendoSwitchControlLibrary inherits commands from SwitchControlLibrary (v2), it is possible to use commands from SwitchControlLibrary as well. (Because we aren't using ArduinoSTL, only the D-Pad commands work a little differently, but they can be used in basically the same way.)
 
-## ⌨️ コマンド一覧
+## ⌨️ List of commands
 
-### ボタン
+### button
 
-- ボタンを押すコマンド（連打にも対応）
+- Command to press a button (also supports consecutive presses)
 
   - `pushButton(uint16_t button, int delay_time = 0, int loop = 1)`
 
-    - button: 押すボタン
-    - delay_time: ボタンを押した後の待ち時間（1 秒 = 1000）
-    - loop: ボタンを押す回数（省略可、デフォルトは 1）
+    - button: button to push
+    - delay_time: Delay time after pressing the button (1 second = 1000) 
+    - loop: Number of button presses (optional, default is 1)
 
-  - 使用例
+  - Examples
 
     ```
-    pushButton(Button::HOME);        // HOMEボタンを入力する
-    pushButton(Button::A, 500);      // Aボタンを入力後、0.5秒待機する
-    pushButton(Button::B, 3000, 10); // 3秒おきにBボタンを入力する、それを10回繰り返す
+    pushButton(Button::HOME);        // Press the HOME button
+    pushButton(Button::A, 500);      // Wait 0.5 seconds after pressing A
+    pushButton(Button::B, 3000, 10); // Press the B button every 3 seconds, repeat 10 times.
     ```
 
-- ボタンを長押しするコマンド
+- Command to press and hold the button.
 
   - `holdButton(uint16_t button, int hold_time)`
 
-    - button: 押し続けるボタン
-    - hold_time: ボタンを押す時間の長さ（1 秒 = 1000）
+    - button: Button to be held
+    - hold_time: Amount of time to hold the button for (1 second = 1000)
 
-  - 使用例
+  - Examples
 
     ```
-    holdButton(Button::L, 2000);       // Lボタンを2秒間押し続けてから離す
-    holdButton(Button::CAPTURE, 1500); // キャプチャーボタンを1.5秒間押し続けてから離す
+    holdButton(Button::L, 2000);       // Hold the L button for 2 seconds
+    holdButton(Button::CAPTURE, 1500); // Hold the screenshot button for 1.5 seconds
     ```
 
-- `Button` 定義一覧
+- `Button` Definition List
 
   ```
   Button::Y
@@ -107,39 +107,39 @@ Arduino IDE やボードのバージョンは、基本的に最新の安定版�
   Button::CAPTURE
   ```
 
-### 十字キー（方向ボタン）
+### D-Pad
 
-- 十字キー（方向ボタン）を押すコマンド（連打にも対応）
+- Commands to push a button on the D-Pad (Also supports consecutive presses)
 
   - `pushHat(uint8_t hat, int delay_time = 0, int loop = 1);`
 
-    - hat: 押す十字キーのボタン
-    - delay_time: ボタンを押した後の待ち時間（1 秒 = 1000）
-    - loop: ボタンを押す回数（省略可、デフォルトは 1）
+    - hat: D-Pad button to press
+    - delay_time: Delay time after pressing the button (1 second = 1000)
+    - loop: Number of button presses (optional, default is 1)
 
-  - 使用例
+  - Examples
 
     ```
-    pushHat(Hat::UP);          // 上キーを1回だけ入力する
-    pushHat(Hat::LEFT, 1000);  // 左キーを入力後、1秒待機する
-    pushHat(Hat::DOWN, 25, 5); // 0.25秒おきに下キーを入力する、それを5回繰り返す
+    pushHat(Hat::UP);          // Press up once
+    pushHat(Hat::LEFT, 1000);  // Press left and wait 1 second.
+    pushHat(Hat::DOWN, 25, 5); // Press down every 0.25 seconds, repeat 5 times.
     ```
 
-- 十字キー（方向ボタン）を長押しするコマンド
+- Commands to hold a button on the D-Pad
 
   - `holdHat(uint8_t hat, int hold_time);`
 
-    - hat: 押し続ける十字キーのボタン
-    - hold_time: ボタンを押す時間の長さ（1 秒 = 1000）
+    - hat: D-Pad button to hold
+    - hold_time: Amount of time to hold the button for (1 second = 1000)
 
-  - 使用例
+  - Examples
 
     ```
-    holdHat(Hat::RIGHT, 5000);   // 右キーを5秒間押し続けてから離す
-    holdHat(Hat::UP_LEFT, 2500); // 十字キーを左上方向に2.5秒間押し続けてから離す
+    holdHat(Hat::RIGHT, 5000);   // Hold right on the D-Pad for 5 seconds
+    holdHat(Hat::UP_LEFT, 2500); // Hold up and left on the D-Pad for 2.5 seconds
     ```
 
-- `Hat` 定義一覧
+- `Hat` Definition List
 
   ```
   Hat::UP
@@ -153,68 +153,68 @@ Arduino IDE やボードのバージョンは、基本的に最新の安定版�
   Hat::NEUTRAL
   ```
 
-### スティック
+### Stick
 
-スティックの座標は、128 を基点として 0〜255 の値を指定します。
+The coordinates of the stick are specified as a value from 0 to 255 with 128 as the neutral point.
 
-0・128・255 の 3 つの値は Stick で定義されているため、置き換えて使用することもできます（0 = MIN, NEUTRAL = 128, MAX = 255）
+The three values 0, 128, and 255 are defined in Stick and can be used interchangeably (0 = MIN, NEUTRAL = 128, MAX = 255).
 
-また、引数にボタンを渡すことでボタンを連打しながらスティックを傾ける操作を行うことができます。
+In addition, by passing buttons as an argument, it is possible to perform the operation of tilting the stick while repeatedly hitting the buttons.
 
-- 左スティックを操作するコマンド
+- Commands to control the left stick
 
   - `tiltLeftStick(uint8_t lx, uint8_t ly, int tilt_time, uint16_t button = NULL);`
 
-    - lx: 左スティックの x 軸
-    - ly: 左スティックの y 軸
-    - tilt_time: スティックを傾ける時間の長さ
-    - button: 連打するボタン
+    - lx: Left stick X-axis
+    - ly: Left stick Y-axis
+    - tilt_time: Amount of time to tilt the stick for
+    - button: Buttons to press repeatedly
 
-  - 使用例
+  - Examples
 
     ```
-    tiltLeftStick(0, 128, 5000);                                // 左スティックを左に5秒間倒す
-    tiltLeftStick(Stick::NEUTRAL, Stick::MAX, 15000);           // 左スティックを下に15秒間倒す
-    tiltLeftStick(Stick::NEUTRAL, Stick::MIN, 8000, Button::A); // Aボタンを連打しながら、左スティックを上に8秒間倒す
+    tiltLeftStick(0, 128, 5000);                                // Tilt the left stick to the left for 5 seconds
+    tiltLeftStick(Stick::NEUTRAL, Stick::MAX, 15000);           // Tilt the left stick down for 15 seconds
+    tiltLeftStick(Stick::NEUTRAL, Stick::MIN, 8000, Button::A); // Tilt the left stick up for 8 seconds while mashing A
     ```
 
-- 右スティックを操作するコマンド
+- Commands to control the right stick
 
   - `tiltRightStick(uint8_t rx, uint8_t ry, int tilt_time, uint16_t button = NULL);`
 
-    - rx: 右スティックの x 軸
-    - ry: 右スティックの y 軸
-    - tilt_time: スティックを傾ける時間の長さ
-    - button: 連打するボタン
+    - rx: Right stick X-axis
+    - ry: Right stick Y-axis
+    - tilt_time: Amount of time to tilt the stick for
+    - button: buttons to press repeatedly
 
-  - 使用例
+  - Examples
 
     ```
-    tiltRightStick(255, 128, 100);                                 // 右スティックを右に0.1秒間倒す
-    tiltRightStick(Stick::MAX, Stick::MIN, 10000);                 // 右スティックを右上に10秒間倒す
-    tiltRightStick(Stick::NEUTRAL, Stick::MAX, 30000, Button::X);  // Xボタンを連打しながら、右スティックを下に30秒間倒す
+    tiltRightStick(255, 128, 100);                                 // Tilt right stick to the bottom right for 0.1 seconds
+    tiltRightStick(Stick::MAX, Stick::MIN, 10000);                 // Tilt right stick to the top right for 10 seconds
+    tiltRightStick(Stick::NEUTRAL, Stick::MAX, 30000, Button::X);  // Hold the right stick down for 30 seconds while mashing X
     ```
 
-- 左右のスティックを同時に操作するコマンド
+- Commands to move the left and right sticks simultaneously
 
   - `tiltLeftAndRightStick(uint8_t lx, uint8_t ly, uint8_t rx, uint8_t ry, int tilt_time, uint16_t button = NULL);`
 
-    - lx: 左スティックの x 軸
-    - ly: 左スティックの y 軸
-    - rx: 右スティックの x 軸
-    - ry: 右スティックの y 軸
-    - tilt_time: スティックを傾ける時間の長さ
-    - button: 連打するボタン
+    - lx: Left stick X-axis
+    - ly: Left stick Y-axis
+    - rx: Right stick X-axis
+    - ry: Right stick Y-axis
+    - tilt_time: Amount of time to tilt the stick for
+    - button: Button to press repeatedly
 
-  - 使用例
+  - Examples
 
     ```
-    tiltLeftAndRightStick(128, 255, 0, 128, 1000);                                                // 左スティックを下に、右スティックを左に1秒間倒す
-    tiltLeftAndRightStick(Stick::MAX, Stick::MAX, Stick::MIN, Stick::MIN, 30000);                 // 左スティックを右下に、右スティックは左上に、30秒間倒す
-    tiltLeftAndRightStick(Stick::NEUTRAL, Stick::MAX, Stick::MIN, Stick::MAX, 2000, Button::B);   // Bボタンを連打しながら、左スティックを下に、右スティックは左下に、2秒間倒す
+    tiltLeftAndRightStick(128, 255, 0, 128, 1000);                                                // Tilt the left stick down and the right stick left for 1 second
+    tiltLeftAndRightStick(Stick::MAX, Stick::MAX, Stick::MIN, Stick::MIN, 30000);                 // Tilt the left stick to the bottom-right and the right stick to the top-left for 30 seconds
+    tiltLeftAndRightStick(Stick::NEUTRAL, Stick::MAX, Stick::MIN, Stick::MAX, 2000, Button::B);   // While mashing B, tilt the left stick down and the right stick to the bottom-left for 2 seconds
     ```
 
-- `Stick` 定義一覧
+- `Stick` Definition List
 
   ```
   Stick::MIN
@@ -222,66 +222,66 @@ Arduino IDE やボードのバージョンは、基本的に最新の安定版�
   Stick::MAX
   ```
 
-### スティックぐるぐる
+### Spinning a Stick
 
-- 左スティックをぐるぐるするコマンド
+- Commands to spin the left stick
 
   - `spinLeftStick(int spin_time, uint8_t speed = 5, bool direction = 1);`
 
-    - spin_time: ぐるぐるさせる時間（1 回転に満たない端数の時間が生じた場合は切り捨てとなります）
-    - speed: 1 秒あたりの回転数
-    - direction: 方向（1: 時計回り, 0：反時計回り）
+    - spin_time: Amount of time to spin the stick (any fractional time that takes less than one spin will be rounded down)
+    - speed: Number of spins per second
+    - direction: Direction to spin (1: clockwise; 0: counterclockwise)
 
-  - 使用例
+  - Examples
 
     ```
-    spinLeftStick(10000);       // 10秒間左スティックを時計回りで、1秒に5回ぐるぐるする
-    spinLeftStick(30000, 1);    // 30秒間左スティックを時計回りで、1秒に1回ぐるぐるする
-    spinLeftStick(25000, 3, 0); // 25秒間左スティックを反時計回りで、1秒に3回ぐるぐるする
+    spinLeftStick(10000);       // Spin the left stick clockwise for 10 seconds at a rate of 5 spins per second
+    spinLeftStick(30000, 1);    // Spin the left stick clockwise for 30 seconds at a rate of 1 spin per second
+    spinLeftStick(25000, 3, 0); // Spin the left stick counterclockwise for 25 seconds at a rate of 3 times per second
     ```
 
-- 右スティックをぐるぐるするコマンド
+- Commands to spin the left stick
 
   - `spinRightStick(int spin_time, uint8_t speed = 5, bool direction = 1);`
 
-    - spin_time: ぐるぐるさせる時間（1 回転に満たない端数の時間が生じた場合は切り捨てとなります）
-    - speed: 1 秒あたりの回転数
-    - direction: 方向（1: 時計回り, 0：反時計回り）
+    - spin_time: Amount of time to spin the stick (any fractional time that takes less than one spin will be rounded down)
+    - speed: Number of spins per second
+    - direction: Direction to spin (1: clockwise; 0: counterclockwise)
 
-  - 使用例
+  - Examples
 
     ```
-    spinRightStick(5000);        // 5秒間右スティックを時計回りで、1秒に5回ぐるぐるする
-    spinRightStick(9000, 10, 0); // 9秒間右スティックを反時計回りで、1秒に10回ぐるぐるする
-    spinRightStick(3000, 4, 1);  // 3秒間右スティックを時計回りで、1秒に4回ぐるぐるする
+    spinRightStick(5000);        // Spin the right stick clockwise for 5 seconds at a rate of 5 times per second
+    spinRightStick(9000, 10, 0); // Spin the right stick counterclockwise for 9 seconds at a rate of 10 times per second
+    spinRightStick(3000, 4, 1);  // Spin the right stick clockwise for 3 seconds at a rate of 4 times per second
     ```
 
-### SwitchControlLibrary を使ったその他のコマンド
+### More commands from SwitchControlLibrary
 
-このライブラリは SwitchControlLibrary のコマンドも内蔵しているため、合わせて使用することもできます。（**v2 系を採用しています。v1 系とは互換性がないことに注意してください**）
+This library also has SwitchControlLibrary commands built in, so they can be used together. (Note: This library uses the v2 version, so it is not compatible with v1 commands.)
 
-上記のもので対応できないものがある場合には、活用してみるといいかもしれません。
+If there is something that isn't explained above, you can make use of it.
 
-サンプルとして、ポケモン剣盾でバックアップデータの読み込みを行うコマンドを用意してみました。
+As a sample, we have made a script to load save data from Pokémon Sword and Shield.
 
 ```
 SwitchControlLibrary().pressButton(Button::B);
 SwitchControlLibrary().pressButton(Button::X);
-SwitchControlLibrary().pressHatButton(Hat::UP); // ※SwitchControlLibraryと異なり、moveHatは使えません。 pressHatButtonに統合されています。
-SwitchControlLibrary().sendReport();            // B、X、↑ボタンが同時に送信される
+SwitchControlLibrary().pressHatButton(Hat::UP); // *Unlike SwitchControlLibrary, moveHat no longer works. It is integrated into pressHatButton.
+SwitchControlLibrary().sendReport();            // B, X, and UP buttons are sent at the same time
 delay(100);
 SwitchControlLibrary().releaseButton(Button::B);
 SwitchControlLibrary().releaseButton(Button::X);
-SwitchControlLibrary().releaseHatButton();      // ※SwitchControlLibraryと異なり、引数は指定しません。（十字キーをニュートラルポジションに戻す処理となる）
-SwitchControlLibrary().sendReport();            // B、X、↑ボタンを同時に離す
+SwitchControlLibrary().releaseHatButton();      // *Unlike SwitchControLibrary, no argument is specified. (This process returns the D-Pad to the neutral position.)
+SwitchControlLibrary().sendReport();            // Release B, X, and UP buttons simultaneously
 ```
 
-## 🎁 さいごに
+## 🎁 Conclusion
 
-このライブラリは暫定的なものなので、要望や改善案、追加してほしい機能などありましたら、[Issues](https://github.com/lefmarna/NintendoSwitchControlLibrary/issues)から気軽に投げかけてくださいませ。
+This library is tentative, so if you have any requests or, suggestions for improvement, or features you would like to see added, please feel free to send them in via [Issues](https://github.com/lefmarna/NintendoSwitchControlLibrary/issues).
 
-画像認識のような高度なものを作るのは難しいかもしれませんが、入力プログラムの応用の範囲でしたら対応できるかと思います。
+It may be difficult to create something as advanced as image recognition, but I think this can handle the range of uses for input programs.
 
-## ©️ ライセンス
+## ©️ License
 
 [MIT](https://github.com/lefmarna/NintendoSwitchControlLibrary/blob/master/LICENSE)
