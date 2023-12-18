@@ -4,7 +4,7 @@ A library for microcontrollers that automates Nintendo Switch games using Arduin
 
 ![demo](https://user-images.githubusercontent.com/49473970/107502281-d0cc6c80-6bdb-11eb-9928-fb0a29744df6.gif)
 
-## ⭐ About this library
+## ⭐ About this Library
 
 This library is based on SwitchControlLibrary by celclow.
 
